@@ -41,7 +41,7 @@ limitations under the License.
   <meta property="og:url" content="https://tradeoff.responsibly.ai">
 
   
-  <meta name="og:description" content="TBD">
+  <meta name="og:description" content="An interactive explainer on AI risk assessment models and fairness trade-offs in health insurance.">
   
   
 
@@ -65,7 +65,7 @@ limitations under the License.
   </div>
 
   <h1 class='headline'>Cancer Risk Assessment & Insurance Coverage</h1>
-  <div class="post-summary">TBD</div>
+  <div class="post-summary">An interactive explainer on AI risk assessment models and fairness trade-offs in health insurance.</div>
   
 <link rel="stylesheet" href="/third_party/weepeople.css">
 <link rel="stylesheet" href="/graph-scroll.css">
@@ -79,10 +79,10 @@ limitations under the License.
         <div>
             <h1>Cancer Risk Assessment & Insurance Coverage</h1>
 
-            <p>Faced with rising healthcare costs and the need for efficient resource allocation, a major insurance company is deploying an Automated Decision System (ADS) using machine learning. The goal is to identify policyholders who are at a high risk of developing severe cancer. The screening system focuses on medical records and insurance claims.
+            <p>To manage rising medical costs, an insurance company is using a computer AI model to predict which customers are most likely to develop cancer. The goal is to find high-risk patients early using their medical records and insurance data.
 
 
-            <p>Based on the patient's initial claims and additional information pulled from medical and public databases, the system will automatically decide which cases to write off as standard risk, and which cases to flag as requiring comprehensive (and expensive) oncology screening and premium adjustments.
+            <p>Using this data, the computer automatically sorts patients into two groups: standard risk (no extra testing) or high risk (requires expensive cancer screenings and higher monthly insurance prices).
 
 
         </div>
@@ -91,7 +91,7 @@ limitations under the License.
         <div>
             <h3>Ground Truth</h3>
 
-            <p>In our historical data, 30% of the patients are at high risk <wee class='sick'>a</wee>. Patients at high risk are those who will develop severe cancer within two years. The other 70% are not at high risk <wee class='well'>b</wee>.
+            <p>In our sample data, 30% of people are high risk <wee class='sick'>a</wee> (they will develop cancer within two years). The remaining 70% are low risk / healthy <wee class='well'>b</wee>.
         </div>
 
 
@@ -99,7 +99,7 @@ limitations under the License.
             <h3>Model Predictions</h3>
 
 
-            <p>In a perfect world, only patients truly at risk would be <bg class='sick'>flagged as requiring comprehensive oncology screening</bg>, and only patients who are actually healthy would be <bg>flagged as not requiring additional screening</bg>.
+            <p>In a perfect world, the computer would only flag patients who are <bg class='sick'>truly at high risk for cancer</bg>, and leave patients who are <bg>healthy marked as standard risk</bg>.
 
         </div>
 
@@ -107,20 +107,20 @@ limitations under the License.
         <div>
             <h3>Model Mistakes</h3>
 
-            <p>But models (and also humans) aren't perfect.
+            <p>But computer models aren't perfect.
 
-            <p>The model might make a mistake and miss a patient who is actually at high risk of cancer <wee class='sick bg-well'>c</wee>.
+            <p>Mistake 1: The computer misses a patient who actually has high cancer risk <wee class='sick bg-well'>c</wee>.
 
-            <p>Or the opposite: the model might flag a patient as high risk <wee class='well bg-sick'>f</wee>, while in fact they are perfectly healthy and no additional screening or premium hike is required.
+            <p>Mistake 2: The computer flags a healthy patient as high risk <wee class='well bg-sick'>f</wee>, causing unnecessary fear, costly medical tests, and unfair price hikes.
         </div>
 
 
         <div>
-            <h3>Never Miss a Cancer Diagnosis...</h3>
+            <h3>Never Miss a High-Risk Patient...</h3>
 
-            <p>One approach would be to have the model flag patients “aggressively”, such that close calls are always marked as “high risk”, ensuring the model rarely misses a potential cancer patient.
+            <p>One approach is to set the computer to flag people very cautiously. Any borderline case is marked "high risk" so the computer rarely misses anyone who might develop cancer.
 
-            <p>We can evaluate this model by counting the number of patients who are correctly and incorrectly flagged as high risk:
+            <p>We can check how well this works by counting how many patients are flagged correctly vs. by mistake:
 
             <div class='metrics'></div>
 
@@ -128,22 +128,21 @@ limitations under the License.
 
 
         <div>
-            <h3>... Or Avoid Unnecessary Screenings & Costs?</h3>
+            <h3>... Or Avoid False Alarms & High Bills?</h3>
 
-            <p>On the other hand, expensive medical resources would be allocated to healthy individuals, resulting in wasted funds, unjustified insurance premium hikes, and severe unnecessary anxiety for the patients.
+            <p>On the other hand, flagging too many people wastes money on unnecessary tests, forces healthy people to pay higher insurance bills, and causes huge emotional stress.
 
             <div class='metrics'></div>
 
-            <p>These issues and trade-offs in model optimization aren't new, but they're brought into focus when we can fine-tune exactly how aggressively the model works when flagging patients for cancer risk.
+            <p>Finding the right balance between catching cancer early and avoiding false alarms is a major challenge when setting up the AI model.
 
         </div>
 
         <div>
             <h3>Improve Prediction Power</h3>
 
-            <p>Sometimes it is useful to gather additional data to improve the predictive power of the model.
-            <p>But do all data sources contribute equally? What are the meanings and consequences in terms of rights and
-                values?
+            <p>Adding more personal data can help the computer make better predictions.
+            <p>But does every piece of data actually help? And is it fair or private to collect such personal details?
 
             <div class='metrics'></div>
             <br>
@@ -157,7 +156,7 @@ limitations under the License.
                 <label for="bio">Family's medical history</label><br>
 
                 <input type="checkbox" id="behavioral-health" name="behavioral-health" value=".1" checked disabled>
-                <label for="behavioral-health">Patient's lifestyle and habits (e.g., smoking, diet)</label><br>
+                <label for="behavioral-health">Patient's lifestyle and habits</label><br>
 
                 <input type="checkbox" id="criminal" name="criminal" value=".1" disabled>
                 <label for="criminal">Environmental exposure data</label><br>
@@ -182,7 +181,7 @@ limitations under the License.
         <div>
             <h3>Putting it all Together</h3>
 
-            <p>Now it is your turn to decide (1) which data sources to use and which to exclude; and (2) how aggressively the model flags a patient as high risk.
+            <p>Now it's your turn! Choose (1) which personal data sources the computer can use, and (2) how cautious the computer should be when flagging someone as high risk.
 
 
             <div class='metrics'></div>
@@ -193,56 +192,56 @@ limitations under the License.
 
                 <input type="checkbox" id="child-protection" name="child-protection" value=".2" checked>
                 <label for="child-protection">Previous oncology and medical records</label>
-                <span data-tooltip="Previous calls to hotline, investigation and reports on each family member.">
+                <span data-tooltip="Past hospital stays, doctor visits, and official medical diagnoses.">
                     <i class="fa-solid fa-circle-info icon"></i>
                 </span>
                 <br>
 
                 <input type="checkbox" id="bio" name="bio" value=".2">
                 <label for="bio">Family's medical history</label>
-                <span data-tooltip="Age, race, ethnicity, gender, marital status, number of children and address.">
+                <span data-tooltip="Family history of cancer, age, gender, and basic demographic info.">
                     <i class="fa-solid fa-circle-info icon"></i>
                 </span>
                 <br>
 
                 <input type="checkbox" id="behavioral-health" name="behavioral-health" value=".1">
-                <label for="behavioral-health">Patient's lifestyle and habits (e.g., smoking, diet)</label>
-                <span data-tooltip="Medication prescriptions, counseling session start and stop times, results of clinical tests, diagnosis, symptoms and prognosis.">
+                <label for="behavioral-health">Patient's lifestyle and habits</label>
+                <span data-tooltip="Daily habits including smoking, alcohol use, diet, and physical activity.">
                     <i class="fa-solid fa-circle-info icon"></i>
                 </span>
                 <br>
 
                 <input type="checkbox" id="criminal" name="criminal" value=".1">
                 <label for="criminal">Environmental exposure data</label>
-                <span data-tooltip="Arrests, criminal charges and the disposition of those charges.">
+                <span data-tooltip="Air quality, pollution, and harmful chemical exposures where the patient lives or works.">
                     <i class="fa-solid fa-circle-info icon"></i>
                 </span>
                 <br>
 
                 <input type="checkbox" id="social-benefits" name="social-benefits" value=".05">
                 <label for="social-benefits">Past insurance claims history</label>
-                <span data-tooltip="Past and current support from government  social welfare services and agencies.">
+                <span data-tooltip="History of past medical claims, treatments, and insurance payouts.">
                     <i class="fa-solid fa-circle-info icon"></i>
                 </span>
                 <br>
 
                 <input type="checkbox" id="employment" name="employment" value=".1">
                 <label for="employment">Occupational hazard history</label>
-                <span data-tooltip="Past and current employment, including start and end dates, employer name and job title.">
+                <span data-tooltip="Workplace conditions, physical labor, and job-related health hazards.">
                     <i class="fa-solid fa-circle-info icon"></i>
                 </span>
                 <br>
 
                 <input type="checkbox" id="credit-score" name="credit-score" value=".05">
                 <label for="credit-score">Socioeconomic indicators</label>
-                <span data-tooltip="Credit scores, credit accounts, payment history, account balances, bankruptcies.">
+                <span data-tooltip="Income level, household status, and general financial stability.">
                     <i class="fa-solid fa-circle-info icon"></i>
                 </span>
                 <br>
 
                 <input type="checkbox" id="social-media" name="social-media" value=".25">
                 <label for="social-media">Genomic and DNA testing results</label>
-                <span data-tooltip="Social media username and publicly available information in all social media platforms.">
+                <span data-tooltip="Results from genetic screening tests that show hereditary cancer risks.">
                     <i class="fa-solid fa-circle-info icon"></i>
                 </span>
                 <br>
@@ -250,8 +249,8 @@ limitations under the License.
             </form>
 
             <br>
-            <div class='slider threshold'></div>
-            <i id='adjust-text'> Try adjusting how aggressive the model is in flagging a patient at risk of cancer</i>
+            <div class='slider threshold' style='margin-top: 45px;'></div>
+            <i id='adjust-text'> Try adjusting how cautious or aggressive the AI model is when flagging patients for cancer risk</i>
         </div>
 
 
