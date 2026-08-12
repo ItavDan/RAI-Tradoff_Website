@@ -1,0 +1,339 @@
+<!--
+@license
+Copyright 2020 Google. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- <link rel="apple-touch-icon" sizes="180x180" href="https://pair.withgoogle.com/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://pair.withgoogle.com/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://pair.withgoogle.com/images/favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="https://pair.withgoogle.com/images/favicon/safari-pinned-tab.svg" color="#00695c">
+  <link rel="shortcut icon" href="https://pair.withgoogle.com/images/favicon.ico"> -->
+
+  <script>
+    !(function () {
+      var url = window.location.href
+      if (url.slice(-1) != '/' && !url.includes('.html')) window.location = url + '/'
+    })()
+  </script>
+
+  <title>Employee Theft Detection</title>
+  <meta property="og:title" content="Employee Theft Detection">
+  <meta property="og:url" content="https://tradeoff.responsibly.ai/flor">
+
+  
+  <meta name="og:description" content="TBD">
+  
+  
+
+  <link rel="stylesheet" type="text/css" href="/style_global.css">
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,500,700|Roboto:700,500,300' rel='stylesheet'
+    type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,700" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width">
+</head>
+
+<body>
+  <div class='header'>
+    <!-- <div class='header-left'> -->
+    <a href='https://teach.responsibly.ai/'>
+      <img src='https://learn.responsibly.ai/assets/logo.png' style='width: 150px'></img>
+    </a>
+    <!-- <a href='../'>Explorables</a> -->
+    <!-- </div> -->
+  </div>
+
+  <h1 class='headline'>Employee Theft Detection</h1>
+  <div class="post-summary">TBD</div>
+  
+<link rel="stylesheet" href="/third_party/weepeople.css">
+<link rel="stylesheet" href="/graph-scroll.css">
+<link rel="stylesheet" href="/style.css">
+
+<div id='container' class='container-1'>
+    <div id='graph'></div>
+    <div id='sections'>
+
+
+        <div>
+            <h1>Employee Theft Detection</h1>
+
+            <p>FLOR sells logistics and storage management systems to retail chains all over the world.
+            
+            <p>Having received numerous complaints that its system is making ‘bad decisions’ in the Oceana region, FLOR revealed a surge in employee merchandise theft in that region that was distorting inventory predictions.
+               FLOR designed  an Automated Decision System (ADS) using machine learning for identifying employees at higher risk of stealing. 
+
+            <p>Based on different sources of information, the system can automatically decide which employees should be subject of a face to face investigation, to determine the likelihood that they are in fact engaging in larceny.
+
+        </div>
+
+
+        <div>
+            <h3>Ground Truth</h3>
+
+            <p>Our assumption is that 30% of the employees in Oceania have either stolen merchandize or have attempted to steal it <wee class='sick'>a</wee>.
+                The other 70% did not <wee class='well'>b</wee>.
+ 
+        </div>
+
+
+        <div>
+            <h3>Model Predictions</h3>
+
+            <p>In a perfect world, employees who commit or tried to commit larceny are <bg class='sick'>flagged as ones
+                    requiring additional
+                    investigation</bg>, and only employees who are not at risk of stealing would be <bg>
+                    flagged
+                    as not requiring an
+                    additional investigation</bg>.
+
+        </div>
+
+
+        <div>
+            <h3>Model Mistakes</h3>
+
+            <p>But models (and also humans) aren't perfect.
+
+            <p>The model might make a mistake and not flag an employee who is at risk being a thief<wee class='sick bg-well'>c</wee>.
+
+            <p>Or the opposite: the model might flag an employee as one at risk <wee class='well bg-sick'>f</wee>, while in
+                fact they have never stolen attempted stealing and thus no additional investigation is required.
+        </div>
+
+
+        <div>
+            <h3>Never Miss a Potential Employee-Thief...</h3>
+
+            <p>One approach would be to have the model flag employees at risk of being thiefs “aggressively”, such that close calls would
+                be decided as
+                “at risk”, and so the model will rarely miss an employeeat at risk of being a thief.
+
+            <p>We can evaluate this model by counting the number of employees who are correctly and incorrectly flagged
+                as employees at
+                risk of stealing:
+
+            <div class='metrics'></div>
+
+        </div>
+
+
+        <div>
+            <h3>... Or Avoid Unnecessary Investigations?</h3>
+
+            <p>On the other hand, company’s resources would be allocated to cases where no further investigation is
+                required,
+                resulting in wasting money. Maybe more importantly, it might burden employees who are
+                not truly at
+                risk.
+
+            <div class='metrics'></div>
+
+            <p>These issues and trade-offs in model optimization aren't new, but they're brought into focus when we have
+                the ability to
+                fine-tune exactly how aggressively the model works when flagging employees as being at risk or not.
+
+        </div>
+
+        <div>
+            <h3>Improve Prediction Power</h3>
+
+            <p>Sometimes it is useful to gather additional data to improve the predictive power of the model.
+            <p>But do all data sources contribute equally? What are the meanings and consequences in terms of rights and
+                values?
+
+            <div class='metrics'></div>
+            <br>
+
+
+            <form>
+                <input type="checkbox" id="child-protection" name="child-protection" value=".2" checked disabled>
+                <label for="child-protection">Employee’s annual performance review</label><br>
+
+                <input type="checkbox" id="bio" name="bio" value=".2" checked disabled>
+                <label for="bio">Employee’s demographics records</label><br>
+
+                <input type="checkbox" id="criminal" name="criminal" value=".1" disabled>
+                <label for="criminal">Employee’s criminal records</label><br>
+
+                <input type="checkbox" id="social-benefits" name="social-benefits" value=".05" disabled>
+                <label for="social-benefits">Employee’s social benefits records</label><br>
+
+                <input type="checkbox" id="employment" name="employment" value=".1" disabled>
+                <label for="employment">Employee’s work message records</label><br>
+
+                <input type="checkbox" id="credit-score" name="credit-score" value=".05" disabled>
+                <label for="credit-score">Employee’s credit score records</label><br>
+
+                <input type="checkbox" id="social-media" name="social-media" value=".25" disabled>
+                <label for="social-media">Employee’s social media profiles</label><br>
+
+                <input type="checkbox" id="behavioral-health" name="behavioral-health" value=".1" checked disabled>
+                <label for="behavioral-health">CCTV footage</label><br>
+            </form>
+
+
+
+        </div>
+
+        <div>
+            <h3>Putting it all Together</h3>
+
+            <p>Now it is your turn to decide (1) which data sources to use and which to exclude; and (2) how
+                aggressively the model is
+                when flagging an employee at risk of stealing.
+
+
+            <div class='metrics'></div>
+
+            <br>
+
+            <form id="datasources">
+
+                <input type="checkbox" id="child-protection" name="child-protection" value=".2" checked>
+                <label for="child-protection">Employee’s annual performance review</label>
+                <span data-tooltip="Employee’s latest annual performance review written by employee’s direct supervisor.">
+                    <i class="fa-solid fa-circle-info icon"></i>
+                </span>
+                <br>
+
+                <input type="checkbox" id="bio" name="bio" value=".2">
+                <label for="bio">Employee’s demographics records</label>
+                <span data-tooltip="Age, race, ethnicity, gender, marital status, number of children and address.">
+                    <i class="fa-solid fa-circle-info icon"></i>
+                </span>
+                <br>
+
+                <input type="checkbox" id="criminal" name="criminal" value=".1">
+                <label for="criminal">Employee’s criminal records</label>
+                <span data-tooltip="Arrests, criminal charges and the disposition of those charges.">
+                    <i class="fa-solid fa-circle-info icon"></i>
+                </span>
+                <br>
+
+                <input type="checkbox" id="social-benefits" name="social-benefits" value=".05">
+                <label for="social-benefits">Employee’s social benefits records</label>
+                <span data-tooltip="Past and current support from government  social welfare services and agencies.">
+                    <i class="fa-solid fa-circle-info icon"></i>
+                </span>
+                <br>
+
+                <input type="checkbox" id="employment" name="employment" value=".1">
+                <label for="employment">Employee’s work message records</label>
+                <span data-tooltip="Slack/discord/emails written by the employee (assume accessing them is in compliance with Oceania’s laws & proper informed consent was given by employees when they were hired).">
+                    <i class="fa-solid fa-circle-info icon"></i>
+                </span>
+                <br>
+
+                <input type="checkbox" id="credit-score" name="credit-score" value=".05">
+                <label for="credit-score">Employee’s credit score records</label>
+                <span data-tooltip="Credit scores, credit accounts, payment history, account balances, bankruptcies.">
+                    <i class="fa-solid fa-circle-info icon"></i>
+                </span>
+                <br>
+
+                <input type="checkbox" id="social-media" name="social-media" value=".25">
+                <label for="social-media">Employee’s social media profiles</label>
+                <span data-tooltip="Social media username and publicly available information, including photos, in all social media platforms.">
+                    <i class="fa-solid fa-circle-info icon"></i>
+                </span>
+                <br>
+
+                <input type="checkbox" id="behavioral-health" name="behavioral-health" value=".1">
+                <label for="behavioral-health">CCTV footage of the workplace</label>
+                <span data-tooltip="Video only, overt and covers all common areas.">
+                    <i class="fa-solid fa-circle-info icon"></i>
+                </span>                
+                <br>
+
+            </form>
+
+            <br>
+            <div class='slider threshold'></div>
+            <i id='adjust-text'> Try adjusting how aggressive the model is in flagging anemployees at risk of stealing.</i>
+        </div>
+
+
+
+    </div>
+</div>
+</div>
+</div>
+
+<br><br><br><br><br><br>
+
+<h3>Credits</h3>
+
+<p><a href="https://teach.responsibly.ai/">Teach Responsible AI Together</a>
+
+<p>Adopted from <a href="https://pair.withgoogle.com/explorables/">AI Explorable</a> by <a
+        href="https://pair.withgoogle.com/">PAIR</a>, made by <a href="https://roadtolarissa.com/">Adam Pearce</a>,
+    licensed <a href="https://github.com/PAIR-code/ai-explorables">Apache License 2.0</a>.
+
+
+<p>Silhouettes from <a href='https://github.com/propublica/weepeople'>ProPublica's Wee People</a>.
+
+
+
+
+    <script src='/third_party/seedrandom.min.js'></script>
+    <script src='/third_party/d3_.js'></script>
+    <script src='/third_party/swoopy-drag.js'></script>
+    <script src='/third_party/topojson-server.js'></script>
+    <script src='/third_party/topojson-client.js'></script>
+    <script src='/third_party/misc.js'></script>
+    <script src='/annotations.js'></script>
+
+    <script src='/students.js'></script>
+    <script src='/flor/sel.js'></script>
+    <script src='/slider.js'></script>
+    <script src='/mini.js'></script>
+    <script src='/metrics.js'></script>
+    <script src='/slides.js'></script>
+    <script src='/sim-params.js'></script>
+    <script src='/data-sources.js'></script>
+    <script src='/gs.js'></script>
+    <script src='/init.js'></script>
+
+    <link rel="stylesheet" href="/base-rate/style.css">
+    <script src='/base-rate/script.js'></script>
+
+    <link rel="stylesheet" type="text/css" href="/tooltip.css">
+    <script src="https://kit.fontawesome.com/994e94b7a6.js" crossorigin="anonymous"></script>
+
+    <!-- <script src='../third_party/recirc.js'></script> -->
+</body>
+
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138505774-1"></script>
+<script>
+  if (window.location.origin === 'https://pair.withgoogle.com') {
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-138505774-1');
+  }
+</script> -->
+
+
+</html>

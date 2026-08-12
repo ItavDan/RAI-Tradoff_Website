@@ -1,0 +1,36 @@
+/* TODO: take tooltip from the original project
+(see style.css) */
+
+[data-tooltip]:before {
+    /* needed - do not touch */
+    content: attr(data-tooltip);
+    position: absolute;
+    opacity: 0;
+    
+    /* customizable */
+    padding: 10px;
+    border-radius: 6px;
+    width: 300px;
+}
+
+[data-tooltip]:hover:before {
+    /* needed - do not touch */
+    opacity: 1;
+    
+    /* customizable */
+    background: rgba(255, 255, 255, .90);
+    border: 1px solid lightgray;
+    padding: 10px;
+    margin-top: -5px;
+    margin-left: 2%; 
+    transition: all .3s;
+    transition-delay: .1s;   
+}
+
+[data-tooltip]:not([data-tooltip-persistent]):before {
+    pointer-events: none;
+}
+
+.icon{
+    font-size: 10pt;
+}

@@ -1,0 +1,15 @@
+# IDE & Editor settings
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Python virtual environment & cache
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
