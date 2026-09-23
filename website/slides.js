@@ -1,4 +1,4 @@
-/* Copyright 2020 Google LLC. All Rights Reserved.
+﻿/* Copyright 2020 Google LLC. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -12,9 +12,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
-
-
-
 
 window.makeSlides = function () {
   var slides = [
@@ -41,15 +38,12 @@ window.makeSlides = function () {
     {
       rectOpacity: d => 1,
       mlAxisOpacity: 1,
-
     },
 
     // Model Mistakes
     {
       threshold: .4,
       animateThreshold: true,
-      // rectFill: d => d.score > gs.curSlide.threshold ? lcolors.sick : lcolors.well,
-      // textStroke: d => d.score > gs.curSlide.threshold == d.isSick ? .3 : .6,
     },
 
     // Never Miss Child at Risk...
@@ -75,13 +69,12 @@ window.makeSlides = function () {
 
     // Putting it all Together
     {
-      threshold: .4,
+      threshold: () => typeof slider.manualThreshold !== 'undefined' ? slider.manualThreshold : slider.threshold,
       animateThreshold: true,
       factor: window.calcFactor,
     },
 
     {
-
     }
 
   ]
@@ -100,7 +93,5 @@ window.makeSlides = function () {
 
   return slides
 }
-
-
 
 if (window.init) window.init()

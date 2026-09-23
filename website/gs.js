@@ -1,4 +1,4 @@
-/* Copyright 2020 Google LLC. All Rights Reserved.
+﻿/* Copyright 2020 Google LLC. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,15 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-
-
-
 window.makeGS = function () {
   var gs = {}
-
   var bodySel = d3.select('body')
-
   var prevSlideIndex = -1
+
   function updateSlide(i) {
     var slide = slides[i]
     if (!slide) return
@@ -40,9 +36,10 @@ window.makeGS = function () {
     sel.textSel.transition().duration(dur)
       .at({ fill: slide.textFill })
 
-
     sel.rectSel.transition('opacity').duration(dur)
       .at({ opacity: slide.rectOpacity })
+
+    var currentThreshold = typeof slide.threshold === 'function' ? slide.threshold() : slide.threshold;
 
     if (!slide.animateThreshold) {
       sel.rectSel.transition('fill').duration(dur)
@@ -51,7 +48,7 @@ window.makeGS = function () {
       sel.textSel.transition('stroke').duration(dur)
         .st({ strokeWidth: slide.textStroke })
 
-      slider.setSlider(slide.threshold, true)
+      slider.setSlider(currentThreshold, true)
       bodySel.transition('gs-tween')
     } else {
       sel.rectSel.transition('fill').duration(dur)
@@ -59,14 +56,12 @@ window.makeGS = function () {
 
       bodySel.transition('gs-tween').duration(dur * 2)
         .attrTween('gs-tween', () => {
-          var i = d3.interpolate(slider.threshold, slide.threshold)
-
+          var i = d3.interpolate(slider.threshold, currentThreshold)
           return t => {
             slider.setSlider(i(t))
           }
         })
     }
-
 
     sel.truthAxis.transition().duration(dur)
       .st({ opacity: slide.truthAxisOpacity })
@@ -74,12 +69,8 @@ window.makeGS = function () {
     sel.mlAxis.transition().duration(dur)
       .st({ opacity: slide.mlAxisOpacity })
 
-
-
-
     sel.botAxis.transition().duration(dur)
       .translate(slide.botAxisY, 1)
-
 
     prevSlideIndex = i
     slides.curSlide = slide
@@ -95,9 +86,5 @@ window.makeGS = function () {
 
   return gs
 }
-
-
-
-
 
 if (window.init) window.init()
