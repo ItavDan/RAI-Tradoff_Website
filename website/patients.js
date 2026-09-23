@@ -1,4 +1,4 @@
-﻿Math.clip = function (number, min, max) {
+Math.clip = function (number, min, max) {
   return Math.max(min, Math.min(number, max));
 };
 
@@ -20,7 +20,7 @@ window.makePatients = function () {
     return { letter, isSick, score, internal_score, pos }
   })
 
-  patients = _.sortBy(patients, d => -d.score)
+  patients = _.sortBy(patients, d => -d.internal_score)
   d3.nestBy(patients, d => d.isSick).forEach(group => {
     var isSick = group[0].isSick
 

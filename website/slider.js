@@ -1,4 +1,4 @@
-﻿/* Copyright 2020 Google LLC. All Rights Reserved.
+/* Copyright 2020 Google LLC. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,6 +13,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
+
+
+
+
+
+
+
 window.makeSlider = function () {
 
   var width = 300
@@ -26,14 +33,28 @@ window.makeSlider = function () {
   var rv = {}
   rv.threshold = .5
   rv.setSlider = makeSetSlider(patients, 'threshold')
+  // rv.setSliderF = makeSetSlider(patients.filter(d => !d.isChild), 'threshold_f')
+  // rv.setSliderM = makeSetSlider(patients.filter(d => d.isChild), 'threshold_m')
 
   var allActiveSel = d3.selectAll('.threshold-rect')
   var allHandleSel = d3.selectAll('.threshold-handle')
 
+  var gatedSel = d3.select('.gated')
+
   function makeSetSlider(data, key) {
+    var text = key.split('_')[1]
+
+
     var drag = d3.drag()
       .on('drag', function (d) {
         updateThreshold(x.invert(d3.mouse(this)[0]))
+        // console.log(d3.event.x)
+
+        if (text && slider.threshold_f && (slider.threshold_f > 0.9042 || slider.threshold_f - slider.threshold_m > .05)) {
+          gatedSel.classed('opened', 1)
+          svg.classed('no-blink', 1)
+        }
+
         if (key == 'threshold') svg.classed('no-blink', 1)
       })
 
@@ -42,6 +63,10 @@ window.makeSlider = function () {
       .call(drag)
       .st({ cursor: 'pointer' })
 
+    if (key == 'threshold_m') svg.classed('no-blink', 1)
+
+
+
     svg.append('rect').at({ width, height, fill: lcolors.well })
 
     var rectSel = svg.append('rect.threshold-rect')
@@ -49,16 +74,32 @@ window.makeSlider = function () {
 
     var handleSel = svg.append('g.threshold-handle')
     handleSel.append('text.cursor')
-      .text('←→')
+      .text('▲')
       .at({ textAnchor: 'middle', fontSize: 25, y: height, dy: '.8em' })
     handleSel.append('circle')
       .at({ cy: height, r: 30, fill: 'rgba(0,0,0,0)' })
 
-    var labelText = 'Model Aggressiveness →'
-    
-    svg.append('text.axis').text(labelText)
+    var labelText = 'Model Aggressiveness _→'
+    var _replacement = !text ? '' : 'On ' + (text == 'f' ? 'Women ' : 'Men ')
+
+    var labelText = '_Model Aggressiveness →'
+    var _replacement = !text ? '' : (text == 'f' ? 'Adult ' : 'Adult ')
+
+    var labelText = '_Model Decision Point'
+    var _replacement = !text ? '' : (text == 'f' ? 'Adult ' : 'Adult ')
+
+    var labelText = 'Model Decision Point_'
+    var _replacement = !text ? '' : (text == 'f' ? ' for Adults ' : ' for Children ')
+
+    var labelText = '_ Model Aggressiveness →'
+    var _replacement = !text ? '' : (text == 'f' ? ' Adult ' : 'Child ')
+
+
+    svg.append('text.axis').text(labelText.replace('_', _replacement))
       .at({ y: height / 2, dy: '.33em', dx: 10 })
       .st({ pointerEvents: 'none' })
+
+
 
     function updateThreshold(threshold, skipDom) {
       rv[key] = threshold
@@ -78,6 +119,7 @@ window.makeSlider = function () {
       }
 
       window.updateSel()
+
     }
 
     return updateThreshold
@@ -85,5 +127,10 @@ window.makeSlider = function () {
 
   return rv
 }
+
+
+
+
+
 
 if (window.init) window.init()

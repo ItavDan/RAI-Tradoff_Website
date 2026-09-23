@@ -1,8 +1,8 @@
-window.calcFactor = function () {
+﻿window.calcFactor = function () {
     var factor = 0
     var dataSources = d3.select("#datasources").selectAll('[type=checkbox]')
     dataSources.each(function (d, i) {
-        source = d3.select(this)
+        var source = d3.select(this)
         if (source.prop("checked")) {
             factor += DATA_SOURCE_FACTROS[source.attr("name")]
         }
@@ -17,8 +17,10 @@ window.updateDataSourceFromFactor = function (factor) {
 }
 
 window.updateDataSources = function (e, d) {
-    factor = window.calcFactor()
+    var factor = window.calcFactor()
     window.updateDataSourceFromFactor(factor)
 }
+
+d3.selectAll("[type='checkbox']").on("change", window.updateDataSources)
 
 if (window.init) window.init()
