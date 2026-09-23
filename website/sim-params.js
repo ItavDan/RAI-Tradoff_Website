@@ -7,12 +7,12 @@ HIGH_IMPACT = .08
 LOW_IMPACT = .03
 
 DATA_SOURCE_FACTROS = {
-    "child-protection": HIGH_IMPACT,
-    "bio": HIGH_IMPACT,
-    "behavioral-health": HIGH_IMPACT,
-    "criminal": LOW_IMPACT,
-    "social-benefits": LOW_IMPACT,
-    "employment": LOW_IMPACT,
-    "credit-score": LOW_IMPACT,
-    "social-media": VERY_HIGH_IMPACT,
+    "medical-records": HIGH_IMPACT,
+    "family-history": HIGH_IMPACT,
+    "lifestyle-habits": HIGH_IMPACT,
+    "environmental-exposure": LOW_IMPACT,
+    "insurance-claims": LOW_IMPACT,
+    "occupational-hazard": LOW_IMPACT,
+    "socioeconomic-indicators": LOW_IMPACT,
+    "genomic-dna": VERY_HIGH_IMPACT,
 }
