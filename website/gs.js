@@ -23,15 +23,19 @@ window.makeGS = function () {
     if (!slide) return
     slides.curSlide = slide
 
-    var currentFactor = typeof slide.factor === 'function' ? slide.factor() : slide.factor;
-    window.updateDataSourceFromFactor(currentFactor)
+    var curFactor = typeof slide.factor === 'function' ? slide.factor() : slide.factor;
+    if (curFactor === undefined || curFactor === null) curFactor = 0;
+    
+    var prevFactor = gs.currentSimFactor !== undefined ? gs.currentSimFactor : 0;
+    
+    var curPerfect = slide.isPerfectWorld === undefined ? false : slide.isPerfectWorld;
+    var prevBlendT = gs.currentBlendT !== undefined ? gs.currentBlendT : (curPerfect ? 0 : 1);
+    var targetBlendT = curPerfect ? 0 : 1;
 
     gs.prevSlide = gs.curSlide
     gs.curSlide = slide
 
     var dur = gs.prevSlide ? 500 * 1 : 0
-    var wasPerfect = gs.prevSlide ? gs.prevSlide.isPerfectWorld : false;
-    var isPerfect = slide.isPerfectWorld;
 
     sel.personSel.transition().duration(dur)
       .translate(d => d.pos[slide.pos])
@@ -45,18 +49,23 @@ window.makeGS = function () {
     var currentThreshold = typeof slide.threshold === 'function' ? slide.threshold() : slide.threshold;
 
     if (!slide.animateThreshold) {
-      slider.setSlider(currentThreshold, true, 1)
+      gs.currentSimFactor = curFactor;
+      gs.currentBlendT = targetBlendT;
+      window.updateDataSourceFromFactor(curFactor);
+      slider.setSlider(currentThreshold, true, targetBlendT)
       bodySel.transition('gs-tween')
     } else {
+      var interpolateFactor = d3.interpolate(prevFactor, curFactor);
+      var interpolateThreshold = d3.interpolate(slider.threshold, currentThreshold);
+      var interpolateBlendT = d3.interpolate(prevBlendT, targetBlendT);
+      
       bodySel.transition('gs-tween').duration(dur * 2)
         .attrTween('gs-tween', () => {
-          var i = d3.interpolate(slider.threshold, currentThreshold)
           return t => {
-            var blendT = 1;
-            if (wasPerfect && !isPerfect) blendT = t;      // 0 to 1
-            if (!wasPerfect && isPerfect) blendT = 1 - t;  // 1 to 0
-            if (wasPerfect && isPerfect) blendT = 0;
-            slider.setSlider(i(t), undefined, blendT)
+            gs.currentSimFactor = interpolateFactor(t);
+            gs.currentBlendT = interpolateBlendT(t);
+            window.updateDataSourceFromFactor(gs.currentSimFactor);
+            slider.setSlider(interpolateThreshold(t), undefined, gs.currentBlendT);
           }
         })
     }
