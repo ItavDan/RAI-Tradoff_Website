@@ -76,10 +76,10 @@ window.makeMetrics = () => {
         var tnSel = metricsSel.append('span.equation').style("font-size", "20px")
 
         function update() {
-            tp.value = patients.filter(d => (d.score > d.threshold) & d.isSick).length
-            fp.value = patients.filter(d => (d.score > d.threshold) & !d.isSick).length
-            fn.value = patients.filter(d => (d.score <= d.threshold) & d.isSick).length
-            tn.value = patients.filter(d => (d.score <= d.threshold) & !d.isSick).length
+            tp.value = patients.filter(d => (d.score > d.threshold) && d.isSick).length
+            fp.value = patients.filter(d => (d.score > d.threshold) && !d.isSick).length
+            fn.value = patients.filter(d => (d.score <= d.threshold) && d.isSick).length
+            tn.value = patients.filter(d => (d.score <= d.threshold) && !d.isSick).length
 
             tpSel.text(tp.value)
             fpSel.text(fp.value)
