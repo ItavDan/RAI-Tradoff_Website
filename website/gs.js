@@ -21,6 +21,7 @@ window.makeGS = function () {
   function updateSlide(i) {
     var slide = slides[i]
     if (!slide) return
+    slides.curSlide = slide // <--- MOVED TO TOP
 
     var currentFactor = typeof slide.factor === 'function' ? slide.factor() : slide.factor;
     window.updateDataSourceFromFactor(currentFactor)
@@ -42,18 +43,9 @@ window.makeGS = function () {
     var currentThreshold = typeof slide.threshold === 'function' ? slide.threshold() : slide.threshold;
 
     if (!slide.animateThreshold) {
-      sel.rectSel.transition('fill').duration(dur)
-        .at({ fill: slide.rectFill })
-
-      sel.textSel.transition('stroke').duration(dur)
-        .st({ strokeWidth: slide.textStroke })
-
       slider.setSlider(currentThreshold, true)
       bodySel.transition('gs-tween')
     } else {
-      sel.rectSel.transition('fill').duration(dur)
-      sel.textSel.transition('stroke').duration(dur)
-
       bodySel.transition('gs-tween').duration(dur * 2)
         .attrTween('gs-tween', () => {
           var i = d3.interpolate(slider.threshold, currentThreshold)
@@ -73,7 +65,6 @@ window.makeGS = function () {
       .translate(slide.botAxisY, 1)
 
     prevSlideIndex = i
-    slides.curSlide = slide
   }
 
   gs.graphScroll = d3.graphScroll()

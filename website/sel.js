@@ -1,4 +1,4 @@
-/* Copyright 2020 Google LLC. All Rights Reserved.
+﻿/* Copyright 2020 Google LLC. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -12,7 +12,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
-
 
 window.makeSel = function () {
   var s = c.width / (nCols - 2) - 1
@@ -74,7 +73,11 @@ window.updateSel = () => {
   sel.rectSel.at({ fill: d => d.score > d.threshold ? lcolors.sick : lcolors.well })
   sel.textSel
     .st({
-      strokeWidth: d => d.score > d.threshold == d.isSick ? 0 : .6,
+      strokeWidth: d => {
+        var isMistake = d.score > d.threshold !== d.isSick;
+        var showMistakes = window.slides && window.slides.curSlide ? window.slides.curSlide.showMistakes : false;
+        return isMistake && showMistakes ? .6 : 0;
+      }
     })
 }
 

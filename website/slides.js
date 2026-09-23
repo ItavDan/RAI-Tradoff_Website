@@ -18,8 +18,7 @@ window.makeSlides = function () {
     // First
     {
       textFill: '#aaa',
-      textStroke: 0,
-      rectFill: d => d.isSick ? lcolors.sick : lcolors.well,
+      showMistakes: false,
       rectOpacity: d => 0,
       threshold: .8,
       truthAxisOpacity: 0,
@@ -44,6 +43,7 @@ window.makeSlides = function () {
     {
       threshold: .4,
       animateThreshold: true,
+      showMistakes: true,
     },
 
     // Never Miss Child at Risk...
