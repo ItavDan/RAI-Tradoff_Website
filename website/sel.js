@@ -24,13 +24,11 @@ window.makeSel = function () {
       width: s,
       x: -s / 2,
       y: -s / 2,
-      // fillOpacity: .2
     })
 
-  // .at({ fontSize: d => d.isChild ? 26 : 34, dy: '.33em', textAnchor: 'middle' })
   var textSel = personSel.append('text.weepeople')
     .text(d => d.letter)
-    .at({ fontSize: d => d.isChild ? 34 : 42, dy: '.33em', textAnchor: 'middle' })
+    .at({ fontSize: 42, dy: '.33em', textAnchor: 'middle' })
     .st({ stroke: d => d.isSick ? dcolors.sick : dcolors.well })
 
   addSwoop(c)
@@ -38,7 +36,7 @@ window.makeSel = function () {
   var botAxis = c.svg.append('g').translate(c.width + 150, 1)
   var truthAxis = botAxis.append('g.axis').translate([0, 0])
 
-  truthAxis.append('text').text('Truth (removed after investigation)')
+  truthAxis.append('text').text('Truth (developed cancer within 2 years)')
     .at({ textAnchor: 'middle', fontWeight: 500, x: s * 2.65 })
 
   truthAxis.append('g').translate([45, 22])
@@ -69,75 +67,7 @@ window.makeSel = function () {
     .append('rect')
     .at({ width: s * .7, height: s * .7, fill: lcolors.well, x: 28, y: -17 })
 
-
-
-  var fpAxis = c.svg.append('g.axis')
-
-  // fpAxis.append('rect')
-  //   .translate(nCols*s - 20, 1)
-  //   .at({
-  //     fill: lcolors.well,
-  //     x: -82,
-  //     y: -12,
-  //     width: 56,
-  //     height: 28,
-  //     // stroke: '#000',
-  //   })
-
-  // fpAxis.append('text')
-  //   .translate(nCols*s - 20, 1)
-  //   .tspans(['False', 'Negatives'], 12)
-  //   .at({textAnchor: 'end', x: -s/2 - 10, fill: colors.sick})
-
-
-  // fpAxis.append('text')
-  //   .translate(nCols*s, 0)
-  //   .tspans(['False', 'Positives'], 12)
-  //   .at({textAnchor: 'start', x: s/2 + 7, fill: colors.well})
-
-
-  var sexAxis = c.svg.append('g.axis')
-
-  sexAxis.append('text').st({ fontWeight: 500, fill: '' })
-    .translate([-15, -30])
-    .text('Adults')
-
-  sexAxis.append('text').st({ fontWeight: 500, fill: '' })
-    .translate([-15, -30 + patients.childOffsetPx])
-    .text('Children')
-
-
-  var brAxis = c.svg.append('g.axis')
-  var cpx = 0
-
-  brAxis.append('path')
-    .translate([-15, -20])
-    .at({
-      stroke: colors.sick,
-      fill: 'none',
-      d: ['M -3 -3 v', -cpx, 'h', patients.adultSickCols * patients.colWidth, 'v', cpx].join('')
-    })
-
-  brAxis.append('path')
-    .translate([-15, -20 + patients.childOffsetPx])
-    .at({
-      stroke: colors.sick,
-      fill: 'none',
-      d: ['M -3 -3 v', -cpx, 'h', patients.childSickCols * patients.colWidth, 'v', cpx].join('')
-    })
-
-  brAxis.append('text').st({ fontWeight: 500, fill: colors.sick })
-    .translate([-15, -30])
-    .text('Sick Adults')
-
-  brAxis.append('text').st({ fontWeight: 500, fill: colors.sick })
-    .translate([-15, -30 + patients.childOffsetPx])
-    .text('Sick Children')
-
-
-
-
-  return { personSel, textSel, rectSel, fpAxis, sexAxis, brAxis, truthAxis, mlAxis, botAxis }
+  return { personSel, textSel, rectSel, truthAxis, mlAxis, botAxis }
 }
 
 window.updateSel = () => {
@@ -147,13 +77,5 @@ window.updateSel = () => {
       strokeWidth: d => d.score > d.threshold == d.isSick ? 0 : .6,
     })
 }
-
-
-
-
-
-
-
-
 
 if (window.init) window.init()

@@ -25,9 +25,6 @@ window.makeSlides = function () {
       rectFill: d => d.isSick ? lcolors.sick : lcolors.well,
       rectOpacity: d => 0,
       threshold: .8,
-      fpAxisOpacity: 0,
-      sexAxisOpacity: 0,
-      brAxisOpacity: 0,
       truthAxisOpacity: 0,
       mlAxisOpacity: 0,
       pos: 'all',
@@ -53,7 +50,6 @@ window.makeSlides = function () {
       animateThreshold: true,
       // rectFill: d => d.score > gs.curSlide.threshold ? lcolors.sick : lcolors.well,
       // textStroke: d => d.score > gs.curSlide.threshold == d.isSick ? .3 : .6,
-      // fpAxisOpacity: 1,
     },
 
     // Never Miss Child at Risk...

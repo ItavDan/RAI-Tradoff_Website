@@ -74,14 +74,8 @@ window.makeGS = function () {
     sel.mlAxis.transition().duration(dur)
       .st({ opacity: slide.mlAxisOpacity })
 
-    sel.fpAxis.transition().duration(dur)
-      .st({ opacity: slide.fpAxisOpacity })
 
-    sel.sexAxis.transition().duration(dur)
-      .st({ opacity: slide.sexAxisOpacity })
 
-    sel.brAxis.transition().duration(dur)
-      .st({ opacity: slide.brAxisOpacity })
 
     sel.botAxis.transition().duration(dur)
       .translate(slide.botAxisY, 1)
