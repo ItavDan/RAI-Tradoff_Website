@@ -26,7 +26,8 @@ window.makeGS = function () {
     var slide = slides[i]
     if (!slide) return
 
-    window.updateDataSourceFromFactor(slide.factor)
+    var currentFactor = typeof slide.factor === 'function' ? slide.factor() : slide.factor;
+    window.updateDataSourceFromFactor(currentFactor)
 
     gs.prevSlide = gs.curSlide
     gs.curSlide = slide

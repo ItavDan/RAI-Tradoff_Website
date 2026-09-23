@@ -81,7 +81,7 @@ window.makeSlides = function () {
     {
       threshold: .4,
       animateThreshold: true,
-      factor: window.calcFactor(),
+      factor: window.calcFactor,
     },
 
     {
