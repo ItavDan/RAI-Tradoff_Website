@@ -71,6 +71,8 @@ window.makeSlider = function () {
 
       rectSel.at({ width: x(threshold) })
       handleSel.translate(x(threshold), 0)
+      
+      window.updateSel()
 
       if (skipDom) return
 
@@ -79,7 +81,6 @@ window.makeSlider = function () {
         allHandleSel.translate(x(threshold), 0)
       }
 
-      window.updateSel()
     }
 
     return updateThreshold

@@ -37,13 +37,13 @@ window.makeSlides = function () {
     {
       rectOpacity: d => 1,
       mlAxisOpacity: 1,
+      showMistakes: true,
     },
 
     // Model Mistakes
     {
       threshold: .4,
       animateThreshold: true,
-      showMistakes: true,
     },
 
     // Never Miss Child at Risk...
