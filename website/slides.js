@@ -39,6 +39,7 @@ window.makeSlides = function () {
       rectOpacity: d => 1,
       mlAxisOpacity: 1,
       showMistakes: false,
+      animateThreshold: true, // Enables reverse sweep animation
     },
 
     // Model Mistakes

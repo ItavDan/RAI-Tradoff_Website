@@ -79,8 +79,14 @@ window.updateSel = (blendT = 1) => {
     if (blendT === 1) return curPerfect ? perfectColor : realColor;
     if (blendT === 0) return perfectColor;
     
-    // Discrete flipping based on sweep progress!
-    return (1 - blendT) < d.internal_score ? realColor : perfectColor;
+    // Smooth custom threshold sweeps to perfectly emulate physical slider movement
+    if (d.isSick) {
+        var fakeThreshLeft = -0.001 + (d.threshold - -0.001) * blendT;
+        return d.score > fakeThreshLeft ? lcolors.sick : lcolors.well;
+    } else {
+        var fakeThreshRight = 1.001 - (1.001 - d.threshold) * blendT;
+        return d.score > fakeThreshRight ? lcolors.sick : lcolors.well;
+    }
   }})
 
   sel.textSel
@@ -93,7 +99,13 @@ window.updateSel = (blendT = 1) => {
         if (blendT === 1) return targetStroke;
         if (blendT === 0) return 0;
         
-        return (1 - blendT) < d.internal_score ? targetStroke : 0;
+        if (d.isSick) {
+            var fakeThreshLeft = -0.001 + (d.threshold - -0.001) * blendT;
+            return (d.score <= fakeThreshLeft) ? .6 : 0;
+        } else {
+            var fakeThreshRight = 1.001 - (1.001 - d.threshold) * blendT;
+            return (d.score > fakeThreshRight) ? .6 : 0;
+        }
       }
     })
 }
