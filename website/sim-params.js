@@ -15,4 +15,5 @@ DATA_SOURCE_FACTROS = {
     "occupational-hazard": LOW_IMPACT,
     "socioeconomic-indicators": LOW_IMPACT,
     "genomic-dna": VERY_HIGH_IMPACT,
+    "chat-conversations": 0,
 }
