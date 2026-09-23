@@ -18,7 +18,7 @@ Math.clip = function (number, min, max) {
 };
 
 
-window.makeStudents = function () {
+window.makePatients = function () {
   var seed = new Math.seedrandom('he4a15')
   // var rand = d3.randomUniform.source(seed)(0, 1)
   var rand = d3.randomNormal.source(seed)(BASE_MEAN, BASE_STD)
@@ -26,27 +26,27 @@ window.makeStudents = function () {
   letters = (letters + letters.toUpperCase()).split('')
 
   // var nSickCols = 6
-  // var mSickCols = 8
+  // var childSickCols = 8
   var nSickCols = 3
-  var mSickCols = 5
+  var childSickCols = 5
 
-  var fSickCols = nSickCols * 2 - mSickCols
+  var adultSickCols = nSickCols * 2 - childSickCols
 
-  var students = d3.range(nCols * nCols).map(i => {
+  var patients = d3.range(nCols * nCols).map(i => {
     var letter = letters[~~d3.randomUniform.source(seed)(0, letters.length)()]
 
-    var isMale = i % 2 == 0
-    var isSick = i < (isMale ? mSickCols : fSickCols) * nCols
-    // var grade = isSick * .5 + rand()
-    var internal_grade = rand()
-    var grade = Math.clip(internal_grade, 0, 1)
+    var isChild = i % 2 == 0
+    var isSick = i < (isChild ? childSickCols : adultSickCols) * nCols
+    // var score = isSick * .5 + rand()
+    var internal_score = rand()
+    var score = Math.clip(internal_score, 0, 1)
     var pos = {}
 
-    return { letter, isSick, isMale, grade, internal_grade, pos }
+    return { letter, isSick, isChild, score, internal_score, pos }
   })
 
-  students = _.sortBy(students, d => -d.grade)
-  d3.nestBy(students, d => d.isSick).forEach(group => {
+  patients = _.sortBy(patients, d => -d.score)
+  d3.nestBy(patients, d => d.isSick).forEach(group => {
     var isSick = group[0].isSick
 
     var sickCols = nSickCols
@@ -62,14 +62,14 @@ window.makeStudents = function () {
     })
   })
 
-  d3.nestBy(students, d => d.isSick + '-' + d.isMale).forEach(group => {
+  d3.nestBy(patients, d => d.isSick + '-' + d.isChild).forEach(group => {
     var isSick = group[0].isSick
-    var isMale = group[0].isMale
+    var isChild = group[0].isChild
 
-    var sickCols = isMale ? mSickCols : fSickCols
+    var sickCols = isChild ? childSickCols : adultSickCols
     var cols = isSick ? sickCols : nCols - sickCols
     var xOffset = isSick ? 0 : sickCols
-    var yOffset = isMale ? nCols / 2 + 2 : 0
+    var yOffset = isChild ? nCols / 2 + 2 : 0
 
     group.forEach((d, i) => {
       d.pos.sexIJ = [cols - 1 - (i % cols) + xOffset, ~~(i / cols) + yOffset]
@@ -81,26 +81,26 @@ window.makeStudents = function () {
     })
   })
 
-  students.maleOffsetJ = nCols / 2 + 2
-  // students.maleOffsetPx = students.maleOffsetJ * c.width / 10
-  students.maleOffsetPx = students.maleOffsetJ * c.width / 8
+  patients.childOffsetJ = nCols / 2 + 2
+  // patients.childOffsetPx = patients.childOffsetJ * c.width / 10
+  patients.childOffsetPx = patients.childOffsetJ * c.width / 8
 
-  students.fSickCols = fSickCols
-  students.mSickCols = mSickCols
+  patients.adultSickCols = adultSickCols
+  patients.childSickCols = childSickCols
 
-  // students.colWidth = c.width / 10
-  students.colWidth = c.width / 8
+  // patients.colWidth = c.width / 10
+  patients.colWidth = c.width / 8
 
-  students.rand = rand
-  return students
+  patients.rand = rand
+  return patients
 }
 
 
-window.updateGrades = (factor) => {
+window.updateScores = (factor) => {
   sick_mean = window.BASE_MEAN * Math.log2(1 + factor)
-  students.map(student => {
-    if (student.isSick) {
-      student.grade = Math.clip(student.internal_grade + sick_mean, 0, 1)
+  patients.map(patient => {
+    if (patient.isSick) {
+      patient.score = Math.clip(patient.internal_score + sick_mean, 0, 1)
     }
   })
 }

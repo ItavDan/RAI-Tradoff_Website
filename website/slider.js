@@ -32,9 +32,9 @@ window.makeSlider = function () {
 
   var rv = {}
   rv.threshold = .5
-  rv.setSlider = makeSetSlider(students, 'threshold')
-  // rv.setSliderF = makeSetSlider(students.filter(d => !d.isMale), 'threshold_f')
-  // rv.setSliderM = makeSetSlider(students.filter(d => d.isMale), 'threshold_m')
+  rv.setSlider = makeSetSlider(patients, 'threshold')
+  // rv.setSliderF = makeSetSlider(patients.filter(d => !d.isChild), 'threshold_f')
+  // rv.setSliderM = makeSetSlider(patients.filter(d => d.isChild), 'threshold_m')
 
   var allActiveSel = d3.selectAll('.threshold-rect')
   var allHandleSel = d3.selectAll('.threshold-handle')

@@ -129,7 +129,7 @@ window.init = function () {
     totalHeight: totalWidth,
   })
 
-  students = makeStudents()
+  patients = makePatients()
   sel = makeSel()
   mini = makeMini()
   metrics = makeMetrics()

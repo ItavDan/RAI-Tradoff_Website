@@ -51,8 +51,8 @@ window.makeSlides = function () {
     {
       threshold: .4,
       animateThreshold: true,
-      // rectFill: d => d.grade > gs.curSlide.threshold ? lcolors.sick : lcolors.well,
-      // textStroke: d => d.grade > gs.curSlide.threshold == d.isSick ? .3 : .6,
+      // rectFill: d => d.score > gs.curSlide.threshold ? lcolors.sick : lcolors.well,
+      // textStroke: d => d.score > gs.curSlide.threshold == d.isSick ? .3 : .6,
       // fpAxisOpacity: 1,
     },
 

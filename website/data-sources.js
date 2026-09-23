@@ -11,7 +11,7 @@ window.calcFactor = function () {
 }
 
 window.updateDataSourceFromFactor = function (factor) {
-    window.updateGrades(factor)
+    window.updateScores(factor)
     metrics.updateAll()
     window.updateSel()
 }

@@ -43,18 +43,18 @@ window.makeMini = function () {
 
     miniSel.st({ marginBottom: sex == 'male' ? 30 : 0 })
 
-    var data = students
-      .filter(d => isAll ? true : sex == 'male' ? d.isMale : !d.isMale)
+    var data = patients
+      .filter(d => isAll ? true : sex == 'male' ? d.isChild : !d.isChild)
 
     var topDatum = {}
     var botDatum = {}
 
     if (type == 'fp') {
-      topDatum.opacity = d => d.grade > d.threshold && d.isSick
+      topDatum.opacity = d => d.score > d.threshold && d.isSick
       botDatum.opacity = d => d.isSick
     } else {
-      topDatum.opacity = d => d.grade > d.threshold && d.isSick
-      botDatum.opacity = d => d.grade > d.threshold
+      topDatum.opacity = d => d.score > d.threshold && d.isSick
+      botDatum.opacity = d => d.score > d.threshold
     }
 
 
@@ -159,7 +159,7 @@ window.makeMini = function () {
 
       datum.update = () => {
         // rectSel.at({
-        //   // fill: d => rColors[d.grade > d.threshold][opacity(d)],
+        //   // fill: d => rColors[d.score > d.threshold][opacity(d)],
         //   // strokeWidth: d => opacity(d) ? 1 : .1,
         // })
 
@@ -176,7 +176,7 @@ window.makeMini = function () {
         })
 
         var sickBoxes = topology.objects.boxes.geometries
-          .filter(d => d.properties.d.grade <= d.properties.d.threshold)
+          .filter(d => d.properties.d.score <= d.properties.d.threshold)
         var obj = { type: 'GeometryCollection', geometries: sickBoxes }
         var pathStr = path(topojson.mesh(topology, obj, (a, b) => a == b))
         callWellPath.at({ d: pathStr })

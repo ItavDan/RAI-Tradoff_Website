@@ -17,7 +17,7 @@ limitations under the License.
 window.makeSel = function () {
   var s = c.width / (nCols - 2) - 1
 
-  var personSel = c.svg.appendMany('g', students)
+  var personSel = c.svg.appendMany('g', patients)
   var rectSel = personSel.append('rect')
     .at({
       height: s,
@@ -27,10 +27,10 @@ window.makeSel = function () {
       // fillOpacity: .2
     })
 
-  // .at({ fontSize: d => d.isMale ? 26 : 34, dy: '.33em', textAnchor: 'middle' })
+  // .at({ fontSize: d => d.isChild ? 26 : 34, dy: '.33em', textAnchor: 'middle' })
   var textSel = personSel.append('text.weepeople')
     .text(d => d.letter)
-    .at({ fontSize: d => d.isMale ? 34 : 42, dy: '.33em', textAnchor: 'middle' })
+    .at({ fontSize: d => d.isChild ? 34 : 42, dy: '.33em', textAnchor: 'middle' })
     .st({ stroke: d => d.isSick ? dcolors.sick : dcolors.well })
 
   addSwoop(c)
@@ -103,7 +103,7 @@ window.makeSel = function () {
     .text('Adults')
 
   sexAxis.append('text').st({ fontWeight: 500, fill: '' })
-    .translate([-15, -30 + students.maleOffsetPx])
+    .translate([-15, -30 + patients.childOffsetPx])
     .text('Children')
 
 
@@ -115,15 +115,15 @@ window.makeSel = function () {
     .at({
       stroke: colors.sick,
       fill: 'none',
-      d: ['M -3 -3 v', -cpx, 'h', students.fSickCols * students.colWidth, 'v', cpx].join('')
+      d: ['M -3 -3 v', -cpx, 'h', patients.adultSickCols * patients.colWidth, 'v', cpx].join('')
     })
 
   brAxis.append('path')
-    .translate([-15, -20 + students.maleOffsetPx])
+    .translate([-15, -20 + patients.childOffsetPx])
     .at({
       stroke: colors.sick,
       fill: 'none',
-      d: ['M -3 -3 v', -cpx, 'h', students.mSickCols * students.colWidth, 'v', cpx].join('')
+      d: ['M -3 -3 v', -cpx, 'h', patients.childSickCols * patients.colWidth, 'v', cpx].join('')
     })
 
   brAxis.append('text').st({ fontWeight: 500, fill: colors.sick })
@@ -131,7 +131,7 @@ window.makeSel = function () {
     .text('Sick Adults')
 
   brAxis.append('text').st({ fontWeight: 500, fill: colors.sick })
-    .translate([-15, -30 + students.maleOffsetPx])
+    .translate([-15, -30 + patients.childOffsetPx])
     .text('Sick Children')
 
 
@@ -141,10 +141,10 @@ window.makeSel = function () {
 }
 
 window.updateSel = () => {
-  sel.rectSel.at({ fill: d => d.grade > d.threshold ? lcolors.sick : lcolors.well })
+  sel.rectSel.at({ fill: d => d.score > d.threshold ? lcolors.sick : lcolors.well })
   sel.textSel
     .st({
-      strokeWidth: d => d.grade > d.threshold == d.isSick ? 0 : .6,
+      strokeWidth: d => d.score > d.threshold == d.isSick ? 0 : .6,
     })
 }
 

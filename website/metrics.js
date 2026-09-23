@@ -25,7 +25,7 @@ window.makeMetrics = () => {
         //     <span class="equation" id="tn">3</span>
         // </div> -->
         // .text(d => d.letter)
-        // .at({ fontSize: d => d.isMale ? 26 : 34, dy: '.33em', textAnchor: 'middle' })
+        // .at({ fontSize: d => d.isChild ? 26 : 34, dy: '.33em', textAnchor: 'middle' })
         // .st({ stroke: d => d.isSick ? dcolors.sick : dcolors.well })
 
 
@@ -76,10 +76,10 @@ window.makeMetrics = () => {
         var tnSel = metricsSel.append('span.equation').style("font-size", "20px")
 
         function update() {
-            tp.value = students.filter(d => (d.grade > d.threshold) & d.isSick).length
-            fp.value = students.filter(d => (d.grade > d.threshold) & !d.isSick).length
-            fn.value = students.filter(d => (d.grade <= d.threshold) & d.isSick).length
-            tn.value = students.filter(d => (d.grade <= d.threshold) & !d.isSick).length
+            tp.value = patients.filter(d => (d.score > d.threshold) & d.isSick).length
+            fp.value = patients.filter(d => (d.score > d.threshold) & !d.isSick).length
+            fn.value = patients.filter(d => (d.score <= d.threshold) & d.isSick).length
+            tn.value = patients.filter(d => (d.score <= d.threshold) & !d.isSick).length
 
             tpSel.text(tp.value)
             fpSel.text(fp.value)
