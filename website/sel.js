@@ -70,7 +70,13 @@ window.makeSel = function () {
 }
 
 window.updateSel = () => {
-  sel.rectSel.at({ fill: d => d.score > d.threshold ? lcolors.sick : lcolors.well })
+  var isPerfect = window.slides && window.slides.curSlide ? window.slides.curSlide.isPerfectWorld : false;
+  
+  sel.rectSel.at({ fill: d => {
+    if (isPerfect) return d.isSick ? lcolors.sick : lcolors.well;
+    return d.score > d.threshold ? lcolors.sick : lcolors.well;
+  }})
+
   sel.textSel
     .st({
       strokeWidth: d => {

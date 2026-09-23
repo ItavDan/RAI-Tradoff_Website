@@ -19,6 +19,7 @@ window.makeSlides = function () {
     {
       textFill: '#aaa',
       showMistakes: false,
+      isPerfectWorld: true,
       rectOpacity: d => 0,
       threshold: .8,
       truthAxisOpacity: 0,
@@ -37,13 +38,15 @@ window.makeSlides = function () {
     {
       rectOpacity: d => 1,
       mlAxisOpacity: 1,
-      showMistakes: true,
+      showMistakes: false,
     },
 
     // Model Mistakes
     {
+      isPerfectWorld: false,
       threshold: .4,
       animateThreshold: true,
+      showMistakes: true,
     },
 
     // Never Miss Child at Risk...
