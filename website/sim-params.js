@@ -2,12 +2,12 @@ BASE_MEAN = .3
 
 BASE_STD = .25
 
-VERY_HIGH_IMPACT = .15
-HIGH_IMPACT = .08
+VERY_HIGH_IMPACT = .12
+HIGH_IMPACT = .06
 LOW_IMPACT = .03
 
 DATA_SOURCE_FACTROS = {
-    "medical-records": HIGH_IMPACT,
+    "medical-records": VERY_HIGH_IMPACT,
     "family-history": HIGH_IMPACT,
     "lifestyle-habits": HIGH_IMPACT,
     "environmental-exposure": LOW_IMPACT,
@@ -15,5 +15,5 @@ DATA_SOURCE_FACTROS = {
     "occupational-hazard": LOW_IMPACT,
     "socioeconomic-indicators": LOW_IMPACT,
     "genomic-dna": VERY_HIGH_IMPACT,
-    "chat-conversations": 0,
+    "chat-conversations": LOW_IMPACT,
 }
