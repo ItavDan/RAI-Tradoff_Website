@@ -62,7 +62,7 @@ window.makeSlider = function () {
       .at({ y: height / 2, dy: '.33em', dx: 10 })
       .st({ pointerEvents: 'none' })
 
-    function updateThreshold(threshold, skipDom) {
+    function updateThreshold(threshold, skipDom, blendT = 1) {
       rv[key] = threshold
       data.forEach(d => d.threshold = threshold)
 
@@ -72,7 +72,7 @@ window.makeSlider = function () {
       rectSel.at({ width: x(threshold) })
       handleSel.translate(x(threshold), 0)
       
-      window.updateSel()
+      window.updateSel(blendT)
 
       if (skipDom) return
 
@@ -80,7 +80,6 @@ window.makeSlider = function () {
         allActiveSel.at({ width: x(threshold) })
         allHandleSel.translate(x(threshold), 0)
       }
-
     }
 
     return updateThreshold

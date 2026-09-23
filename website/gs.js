@@ -21,7 +21,7 @@ window.makeGS = function () {
   function updateSlide(i) {
     var slide = slides[i]
     if (!slide) return
-    slides.curSlide = slide // <--- MOVED TO TOP
+    slides.curSlide = slide
 
     var currentFactor = typeof slide.factor === 'function' ? slide.factor() : slide.factor;
     window.updateDataSourceFromFactor(currentFactor)
@@ -30,6 +30,8 @@ window.makeGS = function () {
     gs.curSlide = slide
 
     var dur = gs.prevSlide ? 500 * 1 : 0
+    var wasPerfect = gs.prevSlide ? gs.prevSlide.isPerfectWorld : false;
+    var isPerfect = slide.isPerfectWorld;
 
     sel.personSel.transition().duration(dur)
       .translate(d => d.pos[slide.pos])
@@ -43,14 +45,18 @@ window.makeGS = function () {
     var currentThreshold = typeof slide.threshold === 'function' ? slide.threshold() : slide.threshold;
 
     if (!slide.animateThreshold) {
-      slider.setSlider(currentThreshold, true)
+      slider.setSlider(currentThreshold, true, 1)
       bodySel.transition('gs-tween')
     } else {
       bodySel.transition('gs-tween').duration(dur * 2)
         .attrTween('gs-tween', () => {
           var i = d3.interpolate(slider.threshold, currentThreshold)
           return t => {
-            slider.setSlider(i(t))
+            var blendT = 1;
+            if (wasPerfect && !isPerfect) blendT = t;      // 0 to 1
+            if (!wasPerfect && isPerfect) blendT = 1 - t;  // 1 to 0
+            if (wasPerfect && isPerfect) blendT = 0;
+            slider.setSlider(i(t), undefined, blendT)
           }
         })
     }

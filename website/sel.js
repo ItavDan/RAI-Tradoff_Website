@@ -69,12 +69,18 @@ window.makeSel = function () {
   return { personSel, textSel, rectSel, truthAxis, mlAxis, botAxis }
 }
 
-window.updateSel = () => {
-  var isPerfect = window.slides && window.slides.curSlide ? window.slides.curSlide.isPerfectWorld : false;
+window.updateSel = (blendT = 1) => {
+  var curPerfect = window.slides && window.slides.curSlide ? window.slides.curSlide.isPerfectWorld : false;
   
   sel.rectSel.at({ fill: d => {
-    if (isPerfect) return d.isSick ? lcolors.sick : lcolors.well;
-    return d.score > d.threshold ? lcolors.sick : lcolors.well;
+    var perfectColor = d.isSick ? lcolors.sick : lcolors.well;
+    var realColor = d.score > d.threshold ? lcolors.sick : lcolors.well;
+    
+    if (blendT === 1) return curPerfect ? perfectColor : realColor;
+    if (blendT === 0) return perfectColor;
+    
+    // Discrete flipping based on sweep progress!
+    return (1 - blendT) < d.internal_score ? realColor : perfectColor;
   }})
 
   sel.textSel
@@ -82,7 +88,12 @@ window.updateSel = () => {
       strokeWidth: d => {
         var isMistake = d.score > d.threshold !== d.isSick;
         var showMistakes = window.slides && window.slides.curSlide ? window.slides.curSlide.showMistakes : false;
-        return isMistake && showMistakes ? .6 : 0;
+        var targetStroke = isMistake && showMistakes ? .6 : 0;
+        
+        if (blendT === 1) return targetStroke;
+        if (blendT === 0) return 0;
+        
+        return (1 - blendT) < d.internal_score ? targetStroke : 0;
       }
     })
 }
